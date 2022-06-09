@@ -1,15 +1,23 @@
 public class myArrayList<T> implements myList<T> {
     private Object[] items; 
-    private int actualSize; //actual number of items that are stored in items array
+    private int actualSize; //actual number of items that are stored in items array     
 
     public myArrayList(){
-        items = new Object[100]; //100 is the capacity of array, i.e how many items it can actually store
         actualSize = 0;
+        items = new Object[actualSize];
+    }
+
+    public myArrayList(myCollection<? extends T> toCopy){
+        this();
+        while(toCopy.iterator().hasNext()){
+            add(toCopy.iterator().next());
+        }
     }
 
     @Override
     public void add(T item) {
-        
+        items = new Object[++actualSize];
+        items[actualSize - 1] = item;
     }
 
     @Override
@@ -35,7 +43,19 @@ public class myArrayList<T> implements myList<T> {
 
     @Override
     public myIterator<T> iterator() {
-        return null;
+        return new myIterator<T>(){
+            int pos = 0;
+
+            @Override
+            public boolean hasNext() {
+                return pos < actualSize;
+            }
+
+            @Override
+            public T next() {
+                return (T)items[++actualSize];
+            }
+        };
     }
 
     @Override
@@ -43,6 +63,4 @@ public class myArrayList<T> implements myList<T> {
         if(index >= 0 && index < actualSize) return (T) items[index];
         else throw new OutOfBoundException("Error!");
     }
-    
-
 }
