@@ -1,3 +1,3 @@
-public interface mySet<T> extends myCollection<T> {
+public interface mySet<T> extends myCollection<T> { 
     
 }

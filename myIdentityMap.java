@@ -17,8 +17,6 @@ public class myIdentityMap<K,V> implements myMap<K,V> {
     @Override
     public void clear() {
         a = new myArrayList<>();
-
-        
     }
     
 }
